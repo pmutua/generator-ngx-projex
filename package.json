@@ -1,14 +1,17 @@
 {
   "name": "generator-ngx-projex",
   "version": "1.0.0",
-  "description": "",
+  "description": "A Yeoman generator for Angular projects with additional features like creating components and interceptors.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
     "generator",
-    "yeoman-generator"
+    "yeoman-generator",
+    "angular",
+    "typescript",
+    "interceptors"
   ],
   "author": "",
   "license": "ISC",

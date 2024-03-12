@@ -3,8 +3,10 @@ import path from 'path';
 import chalk from 'chalk';
 
 // Function to create folders
-export async function createFolders(logger) {
-    const folders = ['app/state', 'app/services', 'app/core', 'app/shared', 'app/pages', 'app/modules'];
+export async function createFolders(appName, logger) {
+    logger('++++++++++++++++++++++++++++++++++++++++++++++++')
+    logger(appName)
+    const folders = [`${appName}/app/state`, `${appName}/app/services`, `${appName}/app/core`, `${appName}/app/shared`, `${appName}/app/pages`];
     folders.forEach(folder => {
         if (!fs.existsSync(folder)) {
             fs.mkdirSync(folder, { recursive: true });
@@ -120,8 +122,8 @@ export class ErrorInterceptor implements HttpInterceptor {
 }
 
 // Function to save interceptor content to a file
-function saveInterceptorToFile(interceptorName, interceptorContent) {
-    const interceptorsDir = 'app/core/interceptors';
+function saveInterceptorToFile(appName, interceptorName, interceptorContent) {
+    const interceptorsDir = `${appName}/app/core/interceptors`;
     const interceptorFileName = `${interceptorName}.interceptor.ts`;
     const interceptorFilePath = path.join(interceptorsDir, interceptorFileName);
 
@@ -137,15 +139,15 @@ function saveInterceptorToFile(interceptorName, interceptorContent) {
 }
 
 // Function to generate all interceptors
-export async function generateInterceptors(logger) {
+export async function generateInterceptors(appName, logger) {
     try {
         const loggingInterceptorContent = generateLoggingInterceptor();
         const authInterceptorContent = generateAuthInterceptor();
         const errorInterceptorContent = generateErrorInterceptor();
 
-        const loggingInterceptorPath = saveInterceptorToFile('logging', loggingInterceptorContent);
-        const authInterceptorPath = saveInterceptorToFile('auth', authInterceptorContent);
-        const errorInterceptorPath = saveInterceptorToFile('error', errorInterceptorContent);
+        const loggingInterceptorPath = saveInterceptorToFile(appName, 'logging', loggingInterceptorContent);
+        const authInterceptorPath = saveInterceptorToFile(appName, 'auth', authInterceptorContent);
+        const errorInterceptorPath = saveInterceptorToFile(appName, 'error', errorInterceptorContent);
 
         logger(chalk.green(`Logging interceptor generated and saved to: ${loggingInterceptorPath}`));
         logger(chalk.green(`Auth interceptor generated and saved to: ${authInterceptorPath}`));
